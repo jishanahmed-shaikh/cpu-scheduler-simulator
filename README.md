@@ -85,6 +85,12 @@ npm run build      # type-checks then emits static assets to dist/
 npm run preview    # serve dist/ on http://localhost:4173
 ```
 
+## Deployment
+
+The build is a static SPA — any static host works. `vercel.json` is included
+for a one-click Vercel deploy with a custom domain. See
+[docs/deployment.md](docs/deployment.md).
+
 ## Testing
 
 ```bash
