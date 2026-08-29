@@ -32,6 +32,10 @@ coverage/
 Thumbs.db
 *.swp
 
+# local-only spec notes and assistant instructions (not part of the repo)
+.kiro/
+CLAUDE.md
+
 # logs
 npm-debug.log*
 yarn-debug.log*
