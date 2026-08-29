@@ -1,0 +1,95 @@
+.gantt__scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.gantt__track {
+  position: relative;
+  height: 40px;
+}
+
+.gantt__segment {
+  position: absolute;
+  top: 0;
+  height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  color: #1a1a1a;
+  font-size: 0.75rem;
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.gantt__axis {
+  position: relative;
+  height: 20px;
+  margin-top: 2px;
+}
+
+.gantt__tick {
+  position: absolute;
+  font-size: 0.7rem;
+  color: var(--color-muted);
+  transform: translateX(-50%);
+}
+
+.timeline__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.timeline__row {
+  display: grid;
+  grid-template-columns: 3rem 5.5rem 1fr;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  padding: 5px 4px;
+  cursor: pointer;
+}
+
+.timeline__type {
+  font-weight: 650;
+}
+
+.timeline__row.is-past {
+  color: var(--color-muted);
+}
+
+.timeline__row.is-selected {
+  background: var(--color-accent);
+}
+
+.inspector__hint {
+  color: var(--color-muted);
+}
+
+.inspector__explanation {
+  font-weight: 650;
+}
+
+.inspector__error {
+  color: #c92a2a;
+}
+
+.inspector pre {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  padding: 8px;
+  overflow-x: auto;
+  font-size: 0.8rem;
+}
+
+.error-boundary {
+  border: 1px solid #f08c00;
+  background: #fff4e6;
+  padding: 12px;
+  border-radius: var(--radius);
+}

@@ -60,6 +60,11 @@ export class ChallengeModeController {
     return this.result && !this.isComplete ? this.correctPid() : null;
   }
 
+  /** Event-log index of the current decision's START, or null when complete. */
+  get pendingEventIndex(): number | null {
+    return this.isComplete ? null : this.decisionIndices[this.cursor] ?? null;
+  }
+
   getCandidates(): Process[] {
     if (!this.result || this.isComplete) return [];
     const index = this.decisionIndices[this.cursor]!;

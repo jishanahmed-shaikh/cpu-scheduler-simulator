@@ -7,6 +7,7 @@ import { deriveState, type RunnerState } from './runnerState';
 import { formatDecisionExplanation } from './explanations/DecisionExplainer';
 
 export interface LearnStep {
+  eventIndex: number;
   event: SimulationEvent;
   explanation: string;
   snapshot: RunnerState;
@@ -37,6 +38,7 @@ export class LearnModeController {
     this.cursor += 1;
     const event = this.result.events[eventIndex]!;
     return {
+      eventIndex,
       event,
       explanation: formatDecisionExplanation(event),
       snapshot: {

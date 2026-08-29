@@ -21,6 +21,16 @@ export class SimulationRunner {
   private speed: SpeedMultiplier = 1;
   private timer: ReturnType<typeof setTimeout> | null = null;
   private listeners = new Set<Listener>();
+  private snapshot: RunnerState = {
+    status: 'idle',
+    currentEventIndex: 0,
+    currentTime: 0,
+    cpuProcess: null,
+    readyQueue: [],
+    ganttSegments: [],
+    partialMetrics: {},
+    events: [],
+  };
 
   load(config: SimulationEngineConfig): void {
     this.stopTimer();
@@ -57,15 +67,24 @@ export class SimulationRunner {
     this.emit();
   }
 
+  /** Jumps the cursor to a specific event index (used by Learn mode). */
+  seekTo(index: number): void {
+    this.stopTimer();
+    const total = this.result?.events.length ?? 0;
+    this.index = Math.max(0, Math.min(index, total));
+    this.status = this.atEnd() ? 'completed' : 'paused';
+    this.emit();
+  }
+
   setSpeed(multiplier: SpeedMultiplier): void {
     this.speed = multiplier;
     if (this.status === 'playing') this.schedule();
+    this.emit();
   }
 
+  /** Returns a stable snapshot reference; only changes when state changes. */
   getState(): RunnerState {
-    const events = this.result?.events ?? [];
-    const gantt = this.result?.ganttChart ?? [];
-    return { status: this.status, ...deriveState(events, this.index, this.processes, gantt) };
+    return this.snapshot;
   }
 
   on(_event: 'stateChange', handler: Listener): void {
@@ -111,7 +130,12 @@ export class SimulationRunner {
   }
 
   private emit(): void {
-    const state = this.getState();
-    for (const listener of this.listeners) listener(state);
+    const events = this.result?.events ?? [];
+    const gantt = this.result?.ganttChart ?? [];
+    this.snapshot = {
+      status: this.status,
+      ...deriveState(events, this.index, this.processes, gantt),
+    };
+    for (const listener of this.listeners) listener(this.snapshot);
   }
 }

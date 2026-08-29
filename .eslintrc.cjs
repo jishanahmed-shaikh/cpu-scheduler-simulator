@@ -23,5 +23,9 @@ module.exports = {
       files: ['src/**/*.test.ts', 'src/**/*.test.tsx', 'src/tests/**'],
       rules: { '@typescript-eslint/no-explicit-any': 'off' },
     },
+    {
+      files: ['src/ui/context/**'],
+      rules: { 'react-refresh/only-export-components': 'off' },
+    },
   ],
 };

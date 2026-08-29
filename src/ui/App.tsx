@@ -1,34 +1,82 @@
-import { useMemo } from 'react';
-import { runSimulation } from '../core/engine/SimulationEngine';
-import { FCFSScheduler } from '../core/schedulers/FCFSScheduler';
-import { getScenario } from '../core/scenarios/PredefinedScenarios';
+import { useState } from 'react';
+import { SimulationProvider } from './context/SimulationProvider';
+import { SelectedEventProvider } from './context/SelectedEventContext';
+import { useSimulation } from './context/SimulationContext';
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
+import { ModeSelector } from './components/ModeSelector';
+import { ProcessTable } from './components/ProcessTable';
+import { SchedulerSelector } from './components/SchedulerSelector';
+import { SimulationControls } from './components/SimulationControls';
+import { CpuState } from './components/CpuState';
+import { ReadyQueue } from './components/ReadyQueue';
+import { GanttChart } from './components/gantt/GanttChart';
+import { MetricsPanel } from './components/MetricsPanel';
+import { EventTimeline } from './components/EventTimeline';
+import { DecisionInspector } from './components/DecisionInspector';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { StorageWarning } from './components/StorageWarning';
+import { LeaderboardModal } from './components/LeaderboardModal';
+import { LearnModeOverlay } from './components/overlays/LearnModeOverlay';
+import { ChallengeOverlay } from './components/overlays/ChallengeOverlay';
+import { OptimizeOverlay } from './components/overlays/OptimizeOverlay';
+import './styles/layout.css';
+import './styles/panels.css';
+import './styles/viz.css';
+import './styles/overlays.css';
 
-/**
- * Temporary shell. The full simulation UI (controls, Gantt chart, metrics,
- * game modes) is built in Phase 5; this proves the core engine renders.
- */
-export function App() {
-  const result = useMemo(() => {
-    const scenario = getScenario('STAGGERED_ARRIVALS')!;
-    return runSimulation({ processes: scenario.processes, scheduler: new FCFSScheduler() });
-  }, []);
+function Workspace() {
+  const { activeMode } = useSimulation();
+  const [boardOpen, setBoardOpen] = useState(false);
+  useKeyboardShortcuts();
 
   return (
-    <main className="app-shell">
-      <h1>CPU Scheduler Game</h1>
-      <p>Offline, deterministic CPU scheduling simulator. Full UI coming in Phase 5.</p>
-      <h2>FCFS · Staggered Arrivals</h2>
-      <ul>
-        {result.ganttChart.map((seg, i) => (
-          <li key={i}>
-            P{seg.pid}: {seg.startTime} &rarr; {seg.endTime}
-          </li>
-        ))}
-      </ul>
-      <p>
-        Average waiting time: {result.metrics?.averageWaitingTime.toFixed(2)} · Context switches:{' '}
-        {result.metrics?.contextSwitches}
-      </p>
-    </main>
+    <div className="app">
+      <header className="app__header">
+        <div>
+          <h1>CPU Scheduler Game</h1>
+          <p className="app__tagline">A deterministic, offline operating-systems scheduling lab.</p>
+        </div>
+        <button type="button" onClick={() => setBoardOpen(true)}>Leaderboard</button>
+      </header>
+
+      <ModeSelector />
+      <StorageWarning />
+
+      {activeMode === 'learn' && <LearnModeOverlay />}
+      {activeMode === 'challenge' && <ChallengeOverlay />}
+      {activeMode === 'optimize' && <OptimizeOverlay />}
+
+      <div className="app__grid">
+        <div className="app__col">
+          <ProcessTable />
+          <SchedulerSelector />
+          <SimulationControls />
+          <div className="app__row">
+            <CpuState />
+            <ReadyQueue />
+          </div>
+        </div>
+        <div className="app__col">
+          <ErrorBoundary label="Gantt chart"><GanttChart /></ErrorBoundary>
+          <ErrorBoundary label="metrics"><MetricsPanel /></ErrorBoundary>
+          <div className="app__row">
+            <EventTimeline />
+            <ErrorBoundary label="decision inspector"><DecisionInspector /></ErrorBoundary>
+          </div>
+        </div>
+      </div>
+
+      <LeaderboardModal open={boardOpen} onClose={() => setBoardOpen(false)} />
+    </div>
+  );
+}
+
+export function App() {
+  return (
+    <SimulationProvider>
+      <SelectedEventProvider>
+        <Workspace />
+      </SelectedEventProvider>
+    </SimulationProvider>
   );
 }

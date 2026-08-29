@@ -1,0 +1,83 @@
+.sim-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.sim-controls__done {
+  color: var(--color-accent-strong);
+  font-weight: 650;
+}
+
+.cpu-state__box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 2px solid var(--color-border);
+}
+
+.cpu-state__box.is-busy {
+  border-color: var(--color-accent-strong);
+  background: var(--color-accent);
+}
+
+.cpu-state__pid {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.cpu-state__clock {
+  margin: 8px 0 0;
+  color: var(--color-muted);
+}
+
+.ready-queue__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ready-queue__item {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 6px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+}
+
+.ready-queue__pid {
+  font-weight: 650;
+}
+
+.metrics tr.is-max {
+  background: #fff3bf;
+}
+
+.metrics tr.is-min {
+  background: #e6fcf5;
+}
+
+.metrics__aggregates {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+  margin: 10px 0 0;
+}
+
+.metrics__aggregates dt {
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+.metrics__aggregates dd {
+  margin: 0;
+  font-weight: 650;
+}

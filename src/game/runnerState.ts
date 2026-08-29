@@ -16,6 +16,16 @@ export interface RunnerState {
   events: SimulationEvent[];
 }
 
+/** CPU time still owed to `proc` at `now`, derived from the Gantt chart. */
+function liveRemaining(proc: Process, gantt: GanttSegment[], now: number): number {
+  let consumed = 0;
+  for (const seg of gantt) {
+    if (seg.pid !== proc.pid || seg.startTime >= now) continue;
+    consumed += Math.min(seg.endTime, now) - seg.startTime;
+  }
+  return Math.max(0, proc.burstTime - consumed);
+}
+
 /**
  * Replays events[0..index] to reconstruct the visible simulation state.
  * Pure and deterministic — the UI never mutates this directly.
@@ -50,6 +60,8 @@ export function deriveState(
     } else if (event.type === 'IDLE_START') cpu = null;
   }
 
+  const liveCpu = cpu ? { ...cpu, remainingBurstTime: liveRemaining(cpu, fullGantt, currentTime) } : null;
+
   const completedPids = new Set(
     slice.filter((e) => e.type === 'COMPLETE').map((e) => e.pid),
   );
@@ -61,7 +73,7 @@ export function deriveState(
   return {
     currentEventIndex: index,
     currentTime,
-    cpuProcess: cpu,
+    cpuProcess: liveCpu,
     readyQueue: [...ready],
     ganttSegments: fullGantt.filter((s) => s.startTime < currentTime),
     partialMetrics: partial,
