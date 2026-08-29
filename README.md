@@ -4,6 +4,10 @@
 
 <h1 align="center">CPU Scheduler Game</h1>
 
+<p align="center">
+  <b><a href="https://cpu-scheduler.jishanahmed.in">Live app → cpu-scheduler.jishanahmed.in</a></b>
+</p>
+
 An offline, deterministic CPU-scheduling simulator and learning game. A pure
 TypeScript discrete-event engine implements FCFS, SJF, SRTF, Round Robin, and
 Priority scheduling; a React interface visualises the CPU, ready queue, Gantt
@@ -15,8 +19,9 @@ Everything runs locally. No AI, no external APIs, no network calls after
 
 ## Demo
 
+Live: **<https://cpu-scheduler.jishanahmed.in>**
+
 <!-- Screenshot / GIF placeholder: add docs/media/overview.png -->
-Run it locally with the quick start below.
 
 ## Features
 

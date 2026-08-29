@@ -7,6 +7,7 @@
     "node": "22.x"
   },
   "description": "Offline, deterministic CPU scheduling simulator and learning game.",
+  "homepage": "https://cpu-scheduler.jishanahmed.in",
   "license": "MIT",
   "author": "Jishanahmed Shaikh",
   "repository": {

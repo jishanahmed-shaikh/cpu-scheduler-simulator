@@ -6,6 +6,8 @@ works.
 
 ## Vercel (current setup)
 
+Live at <https://cpu-scheduler.jishanahmed.in>.
+
 `vercel.json` pins the Vite framework preset, the build command, long-lived
 cache headers for `/assets/*`, an SPA fallback rewrite, and basic security
 headers.
@@ -13,12 +15,11 @@ headers.
 1. Vercel dashboard → **Add New → Project** → import this repository.
 2. Framework preset **Vite** is auto-detected (build `npm run build`, output
    `dist`). Deploy.
-3. Project **Settings → Domains** → add the custom subdomain, e.g.
-   `cpu-scheduler.jishanahmed.in`.
-4. Add the DNS record Vercel shows at the domain's DNS provider — for a
-   GoDaddy-managed zone that is:
-   `CNAME  cpu-scheduler  →  cname.vercel-dns.com`
-5. Vercel issues the TLS certificate automatically once the record resolves.
+3. Project **Settings → Domains** → add `cpu-scheduler.jishanahmed.in`.
+   Because `jishanahmed.in` uses Vercel nameservers, the DNS record and TLS
+   certificate are created automatically — no registrar changes needed. On a
+   registrar-managed zone you would instead add
+   `CNAME  cpu-scheduler  →  cname.vercel-dns.com`.
 
 Every push to `main` triggers a fresh production deploy. Pull requests get
 preview deployments.
