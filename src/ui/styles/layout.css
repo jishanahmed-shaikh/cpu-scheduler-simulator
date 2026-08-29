@@ -24,6 +24,17 @@
   padding-bottom: 12px;
 }
 
+.app__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app__logo {
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
 .app__header h1 {
   margin: 0;
   font-size: 1.4rem;

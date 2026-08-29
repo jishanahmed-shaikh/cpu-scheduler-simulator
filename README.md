@@ -1,4 +1,8 @@
-# CPU Scheduler Game
+<p align="center">
+  <img src="src/assets/logo-mark.png" alt="CPU Scheduler Game logo" width="120" />
+</p>
+
+<h1 align="center">CPU Scheduler Game</h1>
 
 An offline, deterministic CPU-scheduling simulator and learning game. A pure
 TypeScript discrete-event engine implements FCFS, SJF, SRTF, Round Robin, and

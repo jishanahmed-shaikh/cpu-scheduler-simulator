@@ -20,6 +20,7 @@ import { Footer } from './components/Footer';
 import { LearnModeOverlay } from './components/overlays/LearnModeOverlay';
 import { ChallengeOverlay } from './components/overlays/ChallengeOverlay';
 import { OptimizeOverlay } from './components/overlays/OptimizeOverlay';
+import logoMark from '../assets/logo-mark.png';
 import './styles/layout.css';
 import './styles/panels.css';
 import './styles/viz.css';
@@ -33,9 +34,12 @@ function Workspace() {
   return (
     <div className="app">
       <header className="app__header">
-        <div>
-          <h1>CPU Scheduler Game</h1>
-          <p className="app__tagline">A deterministic, offline operating-systems scheduling lab.</p>
+        <div className="app__brand">
+          <img className="app__logo" src={logoMark} alt="" width={44} height={44} />
+          <div>
+            <h1>CPU Scheduler Game</h1>
+            <p className="app__tagline">A deterministic, offline operating-systems scheduling lab.</p>
+          </div>
         </div>
         <button type="button" onClick={() => setBoardOpen(true)}>Leaderboard</button>
       </header>
