@@ -16,6 +16,7 @@ import { DecisionInspector } from './components/DecisionInspector';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { StorageWarning } from './components/StorageWarning';
 import { LeaderboardModal } from './components/LeaderboardModal';
+import { Footer } from './components/Footer';
 import { LearnModeOverlay } from './components/overlays/LearnModeOverlay';
 import { ChallengeOverlay } from './components/overlays/ChallengeOverlay';
 import { OptimizeOverlay } from './components/overlays/OptimizeOverlay';
@@ -67,6 +68,7 @@ function Workspace() {
       </div>
 
       <LeaderboardModal open={boardOpen} onClose={() => setBoardOpen(false)} />
+      <Footer />
     </div>
   );
 }
