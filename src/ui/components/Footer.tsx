@@ -6,20 +6,19 @@ const LINKS = [
 export function Footer() {
   return (
     <footer className="app__footer">
-      <span>
+      <span className="app__footer-credit">
         Crafted by{' '}
         <a href="https://www.jishanahmed.in" target="_blank" rel="noreferrer noopener">
           Mr.&nbsp;JARS
         </a>
       </span>
-      {LINKS.map((link) => (
-        <span key={link.label}>
-          <span className="app__footer-dot" aria-hidden="true">·</span>
-          <a href={link.href} target="_blank" rel="noreferrer noopener">
+      <span className="app__footer-links">
+        {LINKS.map((link) => (
+          <a key={link.label} href={link.href} target="_blank" rel="noreferrer noopener">
             {link.label}
           </a>
-        </span>
-      ))}
+        ))}
+      </span>
     </footer>
   );
 }
