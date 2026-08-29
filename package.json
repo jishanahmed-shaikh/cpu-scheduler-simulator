@@ -4,6 +4,12 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Offline, deterministic CPU scheduling simulator and learning game.",
+  "license": "MIT",
+  "author": "Jishanahmed Shaikh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jishanahmed-shaikh/cpu-scheduler-simulator.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
